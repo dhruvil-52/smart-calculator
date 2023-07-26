@@ -7,7 +7,11 @@ import { VoiceRecognitionService } from 'src/app/voice-recognition.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  searchForm: any;
+  // @ViewChild('inputValue') inputValue: ElementRef;
+  // @ViewChild("myNameElem") myNameElem: ElementRef;
+  public isUserSpeaking: boolean = false;
+  input: any = '';
+  result: any = '';
   clicked: boolean = false;
 
   constructor(
@@ -24,6 +28,7 @@ export class AppComponent implements OnInit {
    */
   stopRecording() {
     this.voiceRecognition.stop();
+    this.isUserSpeaking = false;
   }
 
   /**
@@ -40,7 +45,27 @@ export class AppComponent implements OnInit {
     this.voiceRecognition.speechInput().subscribe((input) => {
       // Set voice text output to
       // Set voice text output to
-      this.searchForm = input;
+      let operations: any = {
+        "plus": "+",
+        "minus": "-",
+        "multiply": "*",
+        "multiplied": "*",
+        "x": "*",
+        "divide": "/",
+        "divided": "/",
+        "reminder": "%",
+        "module": "%",
+        "modular": "%",
+        "modulo": "%"
+      }
+      for (let property in operations) {
+        input = input.replace(property, operations[property]);
+      }
+      this.input = input;
+      this.result = eval(input)
+      // console.log("this.myNameElem.nativeElement.value", this.inputValue.nativeElement.value)
+      // this.inputValue.nativeElement.value = input;
+      // this.myNameElem.nativeElement.value = input;
     });
   }
 
@@ -49,10 +74,34 @@ export class AppComponent implements OnInit {
    */
   startAndStopRecording() {
     if (this.clicked) {
+      this.isUserSpeaking = true;
       this.voiceRecognition.start();
-      this.searchForm = ""
+      this.input = ""
+      // this.inputValue.nativeElement.value = "";
     } else {
       this.voiceRecognition.stop();
+      this.isUserSpeaking = false;
+    }
+  }
+
+  onClick(type: any, value: any) {
+    this.voiceRecognition.stop();
+    this.input = this.input + '' + value
+    switch (value) {
+      case 'C':
+        this.input = ""
+        this.result = eval(this.input)
+        break;
+      case 'backspace':
+        this.input = this.input.replace('backspace', '');
+        this.input = this.input.slice(0, -1);
+        break;
+      case '=':
+        this.input = this.input.replace('=', '');
+        this.result = eval(this.input)
+        break;
+      default:
+        break;
     }
   }
 }

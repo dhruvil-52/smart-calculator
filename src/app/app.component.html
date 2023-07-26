@@ -4,11 +4,15 @@
     <div class="row result">
       <div class="col-10">
         <div class="input">
-          {{searchForm}}
+          <!-- <p #inputValue>
+          </p> -->
+          {{input}}
+          <!-- <input type="text" name="name" #inputValue> -->
         </div>
         <div class="output">
-          <p #output_value>
-          </p>
+          <!-- <p #output_value>
+          </p> -->
+          {{result}}
         </div>
       </div>
       <div class="col-2">
@@ -19,29 +23,31 @@
           <i class="bi bi-mic-fill icon" (click)="clicked = !clicked ;startAndStopRecording()"></i>
         </div>
       </div>
+      <!-- <input type="text" [ngModel]="searchForm"> -->
     </div>
 
     <div class="row btns">
-      <button class="operator" id="clear">C</button>
-      <button class="operator" id="%">%</button>
-      <button class="operator" id="backspace">CE</button>
-      <button class="operator" id="/">&#247;</button>
-      <button class="number" id="7">7</button>
-      <button class="number" id="8">8</button>
-      <button class="number" id="9">9</button>
-      <button class="operator" id="*">&times;</button>
-      <button class="number" id="4">4</button>
-      <button class="number" id="5">5</button>
-      <button class="number" id="6">6</button>
-      <button class="operator" id="-">-</button>
-      <button class="number" id="1">1</button>
-      <button class="number" id="2">2</button>
-      <button class="number" id="3">3</button>
-      <button class="operator" id="+">+</button>
-      <button class="number" id="00">00</button>
-      <button class="number" id="0">0</button>
-      <button class="number" id=".">.</button>
-      <button class="operator" id="=">=</button>
+      <button class="operator" id="clear" (click)="onClick('operator','C')">C</button>
+      <button class="operator" id="%" (click)="onClick('operator','%')">%</button>
+      <button class="operator" id="backspace" (click)="onClick('operator','backspace')">
+        <i class="bi bi-backspace"></i></button>
+      <button class="operator" id="/" (click)="onClick('operator','/')">&#247;</button>
+      <button class="number" id="7" (click)="onClick('number','7')">7</button>
+      <button class="number" id="8" (click)="onClick('number','8')">8</button>
+      <button class="number" id="9" (click)="onClick('number','9')">9</button>
+      <button class="operator" id="*" (click)="onClick('operator','*')">&times;</button>
+      <button class="number" id="4" (click)="onClick('number','4')">4</button>
+      <button class="number" id="5" (click)="onClick('number','5')">5</button>
+      <button class="number" id="6" (click)="onClick('number','6')">6</button>
+      <button class="operator" id="-" (click)="onClick('operator','-')">-</button>
+      <button class="number" id="1" (click)="onClick('number','1')">1</button>
+      <button class="number" id="2" (click)="onClick('number','2')">2</button>
+      <button class="number" id="3" (click)="onClick('number','3')">3</button>
+      <button class="operator" id="+" (click)="onClick('operator','+')">+</button>
+      <button class="number" id="00" (click)="onClick('number','00')">00</button>
+      <button class="number" id="0" (click)="onClick('number','0')">0</button>
+      <button class="number" id="." (click)="onClick('number','.')">.</button>
+      <button class="operator" id="=" (click)="onClick('operator','=')">=</button>
     </div>
   </div>
 </div>
